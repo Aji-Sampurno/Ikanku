@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_laporan"
+        android:icon="@drawable/ic_laporan"
+        android:title="Laporan" />
+
+    <item
+        android:id="@+id/navigation_edukasi"
+        android:icon="@drawable/ic_edukasi"
+        android:title="Edukasi" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_home"
+        android:title="Dashboard" />
+
+    <item
+        android:id="@+id/navigation_jadwal"
+        android:icon="@drawable/ic_jadwal"
+        android:title="Jadwal" />
+
+    <item
+        android:id="@+id/navigation_produk"
+        android:icon="@drawable/ic_produk"
+        android:title="Produk" />
+
+</menu>

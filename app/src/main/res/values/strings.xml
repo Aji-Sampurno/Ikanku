@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Ikanku</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_keranjang">Keranjang</string>
+    <string name="title_saya">Saya</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_laporan">Laporan</string>
+    <string name="title_edukasi">Edukasi</string>
+    <string name="title_jadwal">Jadwal</string>
+    <string name="title_produk">Produk</string>
+    <string name="title_activity_pesanan">Pesanan</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pembeli_navigation"
+    app:startDestination="@id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_keranjang"
+        android:name="com.TA.ikanku.ui.pembeli.fragment.PembeliKeranjang"
+        android:label="Keranjang"
+        tools:layout="@layout/fragment_pembeli_keranjang" />
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.TA.ikanku.ui.pembeli.fragment.PembeliDashboard"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_pembeli_dashboard" />
+    <fragment
+        android:id="@+id/navigation_akun"
+        android:name="com.TA.ikanku.ui.pembeli.fragment.PembeliAkun"
+        android:label="Akun"
+        tools:layout="@layout/fragment_pembeli_akun" />
+</navigation>

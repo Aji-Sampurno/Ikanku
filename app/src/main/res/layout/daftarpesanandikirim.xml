@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ppgambarproduk"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_launcher_background"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ppgambarproduk"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/ppidproduk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Id produk"/>
+
+                <TextView
+                    android:id="@+id/ppidpenjual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Id penjual"/>
+
+                <TextView
+                    android:id="@+id/ppnamaproduk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_marginTop="10dp"
+                    android:text="Nama Produk"/>
+
+                <TextView
+                    android:id="@+id/ppstok"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="0"/>
+
+                <TextView
+                    android:id="@+id/ppharga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp"
+                    android:text="Rp. 20.000"/>
+
+                <TextView
+                    android:id="@+id/ppdeskripsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="deskripsi"/>
+
+                <TextView
+                    android:id="@+id/ppidpesanan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Id pesanan"/>
+
+                <TextView
+                    android:id="@+id/ppinvoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Id penjual"/>
+
+                <TextView
+                    android:id="@+id/pppembeli"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Id penjual"/>
+
+                <TextView
+                    android:id="@+id/pppengiriman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Id penjual"/>
+
+                <TextView
+                    android:id="@+id/ppalamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Id penjual"/>
+
+                <TextView
+                    android:id="@+id/pptelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Id penjual"/>
+
+                <TextView
+                    android:id="@+id/ppstatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Id penjual"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Small"
+                        android:layout_weight="1"
+                        android:text="Produk yang dibeli"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Small"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="0"
+                        android:id="@+id/ppjumlah"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:weightSum="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Small"
+                        android:layout_weight="1"
+                        android:text="Total Pembayaran"/>
+
+                    <TextView
+                        android:id="@+id/ppbayar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Small"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="0"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

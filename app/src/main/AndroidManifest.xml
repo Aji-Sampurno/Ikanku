@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.TA.ikanku">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Ikanku">
+        <activity android:name="com.TA.ikanku.ui.penjualan.DetailPenjualanSelesai"></activity>
+        <activity android:name="com.TA.ikanku.ui.penjualan.DetailPenjualanDikirim" />
+        <activity android:name="com.TA.ikanku.ui.penjualan.DetailPenjualan" />
+        <activity android:name="com.TA.ikanku.ui.pesanan.DetailPesananSelesai" />
+        <activity android:name="com.TA.ikanku.ui.pesanan.DetailPesananDikirim" />
+        <activity android:name="com.TA.ikanku.ui.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.TA.ikanku.ui.Pembayaran"
+            android:label="Pembayaran" />
+        <activity
+            android:name="com.TA.ikanku.ui.Pesanan"
+            android:label="@string/title_activity_pesanan"
+            android:theme="@style/Theme.Ikanku.NoActionBar" />
+        <activity
+            android:name="com.TA.ikanku.ui.PengaturanAkun"
+            android:label="Pengaturan Akun" />
+        <activity
+            android:name="com.TA.ikanku.ui.Keranjang"
+            android:label="Keranjang" />
+        <activity
+            android:name="com.TA.ikanku.ui.Akun"
+            android:label="Akun" />
+        <activity
+            android:name="com.TA.ikanku.ui.DetailProduk"
+            android:label="Detail Produk" />
+        <activity
+            android:name="com.TA.ikanku.ui.penjual.PenjualEditProduk"
+            android:label="Edit Produk" />
+        <activity
+            android:name="com.TA.ikanku.ui.penjual.PenjualTambahProduk"
+            android:label="Tambah Produk" />
+        <activity
+            android:name="com.TA.ikanku.ui.penjual.PenjualMain"
+            android:label="Ikanku" />
+        <activity
+            android:name="com.TA.ikanku.ui.Login"/>
+        <activity
+            android:name="com.TA.ikanku.ui.Registrasi"
+            android:label="Registrasi" />
+        <activity
+            android:name="com.TA.ikanku.MainActivity"
+            android:label="Ikanku" />
+        <activity
+            android:name="com.TA.ikanku.ui.pesanan.DetailPesanan"
+            android:label="Pesanan" />
+        <activity
+            android:name="com.TA.ikanku.ui.Penjualan"
+            android:label="Penjualan"
+            android:theme="@style/Theme.Ikanku.NoActionBar" />
+        <activity
+            android:name="com.TA.ikanku.ui.RegistrasiPenjual"
+            android:label="Registrasi Penjual" />
+        <activity
+            android:name="com.TA.ikanku.ui.pembeli.PembeliMain"
+            android:label="Ikanku" />
+        <receiver android:name=".util.Notifikasi" />
+    </application>
+
+</manifest>
