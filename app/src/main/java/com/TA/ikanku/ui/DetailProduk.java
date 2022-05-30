@@ -15,7 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.TA.ikanku.ui.penjual.DetailEdukasi;
+import com.TA.ikanku.ui.penjual.PenjualEditProduk;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,20 +41,15 @@ import java.util.Map;
 
 public class DetailProduk extends AppCompatActivity {
 
-    private static final String TAG = DetailProduk.class.getSimpleName();
     TextView idproduk,namaproduk,stok,hargaproduk,deskripsi;
     EditText jumlah;
-    Button btnbeli;
+    Button btnbeli,btnlaporan;
     ImageView gambarproduk;
-    private ProgressBar loading;
     SessionManager sessionManager;
     ProgressDialog pd;
     String getId,getStatus;
-    Bitmap bitmap;
-    private Menu action;
-    final int CODE_GALLERY_REQUEST = 999;
-    private static String URL_DETAILPRODUK="https://jualanikan.000webhostapp.com/Penjual/DetailProduk?idproduk=";
     private static String URL_TAMBAHKERANJANG="https://jualanikan.000webhostapp.com/Penjual/TambahKeranjang";
+    private static String URL_LAPORKANPRODUK="https://jualanikan.000webhostapp.com/Penjual/LaporkanProduk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +57,14 @@ public class DetailProduk extends AppCompatActivity {
         setContentView(R.layout.activity_detail_produk);
 
         Intent data = getIntent();
+        final int update = data.getIntExtra("update",0);
         String intentidproduk = data.getStringExtra("idproduk");
+        String intentidpenjual = data.getStringExtra("idpenjual");
+        String intentnamaproduk = data.getStringExtra("namaproduk");
+        String intentstok = data.getStringExtra("stok");
+        String intenthargaproduk = data.getStringExtra("hargaproduk");
+        String intentdeskripsi = data.getStringExtra("deskripsi");
+        String intentgambar = data.getStringExtra("gambarproduk");
 
         sessionManager = new SessionManager(this);
 
@@ -75,9 +80,20 @@ public class DetailProduk extends AppCompatActivity {
         jumlah       = findViewById(R.id.jumlah);
         gambarproduk = findViewById(R.id.ivproduk);
         btnbeli      = findViewById(R.id.btnbeli);
+        btnlaporan   = findViewById(R.id.btnlaporan);
         pd           = new ProgressDialog(DetailProduk.this);
 
-        loadJson(intentidproduk);
+        FormatCurrency currency = new FormatCurrency();
+
+        if(update == 1)
+        {
+            idproduk.setText(intentidproduk);
+            namaproduk.setText(intentnamaproduk);
+            stok.setText(intentstok);
+            hargaproduk.setText(currency.formatRupiah(intenthargaproduk));
+            deskripsi.setText(intentdeskripsi);
+            Glide.with(DetailProduk.this).load(intentgambar).centerCrop().into(gambarproduk);
+        }
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -86,78 +102,23 @@ public class DetailProduk extends AppCompatActivity {
         btnbeli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simpanData();
+                String beli = jumlah.getText().toString();
+                Integer jumlahbeli = Integer.valueOf(beli);
+                Integer stokbarang = Integer.valueOf(intentstok);
+                if (jumlahbeli>stokbarang){
+                    Toast.makeText(DetailProduk.this, "Jumlah melebihi stok", Toast.LENGTH_SHORT).show();
+                }else {
+                    simpanData();
+                }
             }
         });
-    }
 
-    private void loadJson(String intentidproduk)
-    {
-        pd.setMessage("Memuat...");
-        pd.setCancelable(false);
-        pd.show();
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-        FormatCurrency currency = new FormatCurrency();
-        StringRequest updateReq = new StringRequest(Request.Method.GET, URL_DETAILPRODUK + intentidproduk,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        pd.cancel();
-                        try {
-                            JSONArray jArray = new JSONArray(response);
-                            for(int i=0;i<jArray.length();i++){
-                                JSONObject res = jArray.getJSONObject(i);
-                                idproduk.setText(res.getString("idproduk").trim());
-                                namaproduk.setText(res.getString("namaproduk").trim());
-                                stok.setText(res.getString("stok").trim());
-                                hargaproduk.setText(currency.formatRupiah(res.getString("hargaproduk")));
-                                deskripsi.setText(res.getString("deskripsi").trim());
-
-                                Glide.with(DetailProduk.this).load(res.getString("gambarproduk")).centerCrop().into(gambarproduk);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(DetailProduk.this);
-                            builder.setTitle("Kesalahan Memuat").
-                                    setIcon(R.mipmap.ic_warning_foreground).
-                                    setMessage("Terdapat Kesalahan saat memuat data");
-                            builder.setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-                            AlertDialog alert11 = builder.create();
-                            alert11.show();
-
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        pd.cancel();
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(DetailProduk.this);
-                        builder.setTitle("Kesalahan Jaringan").
-                                setIcon(R.mipmap.ic_kesalahan_jaringan_foreground).
-                                setMessage("Terdapat Kesalahan jaringan saat memuat data");
-                        builder.setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                        AlertDialog alert11 = builder.create();
-                        alert11.show();
-
-                    }
-                }){
-        };
-
-        queue.add(updateReq);
+        btnlaporan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                laporkan();
+            }
+        });
     }
 
     private void simpanData()
@@ -246,6 +207,101 @@ public class DetailProduk extends AppCompatActivity {
                 map.put("idpengguna",getId);
                 map.put("idproduk",idproduk.getText().toString());
                 map.put("jumlah",jumlah.getText().toString());
+                System.out.println(map);
+
+                return map;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void laporkan()
+    {
+        pd.setMessage("Menyimpan Data");
+        pd.setCancelable(false);
+        pd.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LAPORKANPRODUK,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        pd.cancel();
+                        try {
+                            JSONObject res = new JSONObject(response);
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(DetailProduk.this);
+                            builder.setTitle("Laporkan Produk").
+                                    setIcon(R.mipmap.ic_sukses_foreground).
+                                    setMessage("Produk berhasil dilaporkan");
+                            builder.setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                            AlertDialog alert11 = builder.create();
+                            alert11.show();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(DetailProduk.this);
+                            builder.setTitle("Update Produk").
+                                    setIcon(R.mipmap.ic_warning_foreground).
+                                    setMessage("Produk anda gagal diupdate");
+                            builder.setPositiveButton("Ulangi",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                            AlertDialog alert11 = builder.create();
+                            alert11.show();
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pd.cancel();
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(DetailProduk.this);
+                        builder.setTitle("Kesalahan Jaringan").
+                                setIcon(R.mipmap.ic_kesalahan_jaringan_foreground).
+                                setMessage("Terdapat kesalahan jaringan saat melakukan update");
+                        builder.setPositiveButton("Ulangi",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        builder.setNegativeButton("Batal",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        if (getStatus.equals("1")){
+                                            Intent intent = new Intent(DetailProduk.this, PembeliMain.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Intent intent = new Intent(DetailProduk.this, PenjualMain.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }
+                                });
+                        AlertDialog alert11 = builder.create();
+                        alert11.show();
+
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("idproduk",idproduk.getText().toString());
                 System.out.println(map);
 
                 return map;

@@ -22,7 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_save" />
+            android:background="@drawable/ic_laporan"
+            android:backgroundTint="@color/maincolor"/>
 
         <EditText
             android:id="@+id/edit_title"
@@ -45,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="@drawable/ic_jadwal"/>
+            android:background="@drawable/ic_jadwal"
+            android:backgroundTint="@color/maincolor"/>
 
         <TextView
             android:id="@+id/date"
@@ -66,7 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="@drawable/ic_jadwal" />
+            android:background="@drawable/ic_clock"
+            android:backgroundTint="@color/maincolor"/>
 
         <TextView
             android:id="@+id/time"

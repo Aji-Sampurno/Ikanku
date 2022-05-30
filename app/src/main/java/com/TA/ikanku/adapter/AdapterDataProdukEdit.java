@@ -86,6 +86,7 @@ public class AdapterDataProdukEdit extends RecyclerView.Adapter<AdapterDataProdu
                     update.putExtra("stok",md.getStok());
                     update.putExtra("hargaproduk",md.getHargaProduk());
                     update.putExtra("deskripsi",md.getDeskripsi());
+                    update.putExtra("gambarproduk",md.getGambarproduk());
 
                     context.startActivity(update);
                 }

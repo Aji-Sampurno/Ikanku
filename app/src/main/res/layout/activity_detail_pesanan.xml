@@ -316,6 +316,14 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/btnterima"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:visibility="gone"
+                    android:text="Terima Pesanan"/>
+
             </LinearLayout>
 
         </LinearLayout>

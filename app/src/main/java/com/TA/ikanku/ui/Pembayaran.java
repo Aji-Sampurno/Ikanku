@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.TA.ikanku.ui.penjual.PenjualEditProduk;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -45,7 +46,8 @@ public class Pembayaran extends AppCompatActivity {
     String          getAlamat,getId,getTelp,getStatus;
     SessionManager  sessionManager;
 
-    private static String URL_DETAILKERANJANG="https://jualanikan.000webhostapp.com/Penjual/DetailKeranjang?idkeranjang=";
+//    private static String URL_DETAILKERANJANG="https://jualanikan.000webhostapp.com/Penjual/DetailKeranjang?idkeranjang=";
+    private static String URL_HAPUSKERANJANG="https://jualanikan.000webhostapp.com/Penjual/HapusKeranjang?idkeranjang=";
     private static String URL_BUATPESANAN="https://jualanikan.000webhostapp.com/Penjual/TambahPesanan";
 
     @Override
@@ -54,9 +56,17 @@ public class Pembayaran extends AppCompatActivity {
         setContentView(R.layout.activity_pembayaran);
 
         Intent data = getIntent();
+        final int update = data.getIntExtra("update",0);
         String intentidkeranjang = data.getStringExtra("idkeranjang");
+        String intentidproduk = data.getStringExtra("idproduk");
+        String intentidpenjual = data.getStringExtra("idpenjual");
+        String intentnamaproduk = data.getStringExtra("namaproduk");
+        String intentstok = data.getStringExtra("stok");
+        String intenthargaproduk = data.getStringExtra("hargaproduk");
+        String intentdeskripsi = data.getStringExtra("deskripsi");
+        String intentidpengguna = data.getStringExtra("idpengguna");
         String intentjumlah      = data.getStringExtra("jumlah");
-        String intentharga       = data.getStringExtra("hargaproduk");
+        String intentgambar = data.getStringExtra("gambarproduk");
 
         sessionManager  = new SessionManager(this);
 
@@ -87,7 +97,33 @@ public class Pembayaran extends AppCompatActivity {
         savetelp        = findViewById(R.id.bayarsavetelp);
         pd              = new ProgressDialog(Pembayaran.this);
 
-        loadJson(intentidkeranjang);
+        if(update == 1)
+        {
+            FormatCurrency currency = new FormatCurrency();
+            tvidproduk.setText(intentidproduk);
+            tvidpenjual.setText(intentidpenjual);
+            tvnamaproduk.setText(intentnamaproduk);
+            tvstok.setText(intentstok);
+            tvhargaproduk.setText(currency.formatRupiah(intenthargaproduk));
+            tvdeskripsi.setText(intentdeskripsi);
+            tvidkeranjang.setText(intentidkeranjang);
+            tvidpengguna.setText(intentidpengguna);
+            tvjumlah.setText(intentjumlah);
+            bayaralamat.setText(getAlamat);
+            bayartelp.setText(getTelp);
+
+            String harga    = intenthargaproduk;
+            String jumlah   = intentjumlah;
+
+            Glide.with(Pembayaran.this).load(intentgambar).centerCrop().into(gambarproduk);
+
+            int totalbayar  = Integer.parseInt(harga) * Integer.parseInt(jumlah);
+
+            tvtotalbayar.setText(currency.formatRupiah(String.valueOf(totalbayar)));
+            tvtotalbayar.setContentDescription(String.valueOf(totalbayar));
+        }
+
+//        loadJson(intentidkeranjang);
 
         bayar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,10 +192,12 @@ public class Pembayaran extends AppCompatActivity {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             if (getStatus.equals("1")){
+                                                HapusKeranjang();
                                                 Intent i = new Intent(Pembayaran.this, PembeliMain.class);
                                                 startActivity(i);
                                                 finish();
                                             }else {
+                                                HapusKeranjang();
                                                 Intent i = new Intent(Pembayaran.this, PenjualMain.class);
                                                 startActivity(i);
                                                 finish();
@@ -170,10 +208,12 @@ public class Pembayaran extends AppCompatActivity {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             if (getStatus.equals("1")){
+                                                HapusKeranjang();
                                                 Intent i = new Intent(Pembayaran.this, PembeliMain.class);
                                                 startActivity(i);
                                                 finish();
                                             }else {
+                                                HapusKeranjang();
                                                 Intent i = new Intent(Pembayaran.this, Keranjang.class);
                                                 startActivity(i);
                                                 finish();
@@ -193,6 +233,7 @@ public class Pembayaran extends AppCompatActivity {
                             builder.setPositiveButton("OK",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
+                                            HapusKeranjang();
                                             dialog.cancel();
                                         }
                                     });
@@ -242,62 +283,99 @@ public class Pembayaran extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void loadJson(String intentidkeranjang)
+//    private void loadJson(String intentidkeranjang)
+//    {
+//        pd.setMessage("Memuat...");
+//        pd.setCancelable(false);
+//        pd.show();
+//
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        FormatCurrency currency = new FormatCurrency();
+//        StringRequest updateReq = new StringRequest(Request.Method.GET, URL_DETAILKERANJANG + intentidkeranjang,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        pd.cancel();
+//                        try {
+//                            JSONArray jArray = new JSONArray(response);
+//                            for(int i=0;i<jArray.length();i++){
+//                                JSONObject res = jArray.getJSONObject(i);
+//                                tvidproduk.setText(res.getString("idproduk").trim());
+//                                tvidpenjual.setText(res.getString("idpenjual").trim());
+//                                tvnamaproduk.setText(res.getString("namaproduk").trim());
+//                                tvstok.setText(res.getString("stok").trim());
+//                                tvhargaproduk.setText(currency.formatRupiah(res.getString("hargaproduk").trim()));
+//                                tvdeskripsi.setText(res.getString("deskripsi").trim());
+//                                tvidkeranjang.setText(res.getString("idkeranjang").trim());
+//                                tvidpengguna.setText(res.getString("idpengguna").trim());
+//                                tvjumlah.setText(res.getString("jumlah").trim());
+//                                bayaralamat.setText(getAlamat);
+//                                bayartelp.setText(getTelp);
+//
+//                                String harga    = res.getString("hargaproduk").trim();
+//                                String jumlah   = res.getString("jumlah").trim();
+//
+//                                Glide.with(Pembayaran.this).load(res.getString("gambarproduk")).centerCrop().into(gambarproduk);
+//
+//                                int totalbayar  = Integer.parseInt(harga) * Integer.parseInt(jumlah);
+//
+//                                tvtotalbayar.setText(currency.formatRupiah(String.valueOf(totalbayar)));
+//                                tvtotalbayar.setContentDescription(String.valueOf(totalbayar));
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(Pembayaran.this);
+//                            builder.setTitle("Kesalahan Memuat").
+//                                    setIcon(R.mipmap.ic_warning_foreground).
+//                                    setMessage("Terdapat Kesalahan saat memuat data");
+//                            builder.setPositiveButton("OK",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//                                            dialog.cancel();
+//                                        }
+//                                    });
+//                            AlertDialog alert11 = builder.create();
+//                            alert11.show();
+//
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        pd.cancel();
+//
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(Pembayaran.this);
+//                        builder.setTitle("Kesalahan Jaringan").
+//                                setIcon(R.mipmap.ic_kesalahan_jaringan_foreground).
+//                                setMessage("Terdapat kesalahan jaringan saat memuat data");
+//                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//                        AlertDialog alert11 = builder.create();
+//                        alert11.show();
+//
+//                    }
+//                }){
+//        };
+//
+//        queue.add(updateReq);
+//    }
+
+    private void HapusKeranjang()
     {
-        pd.setMessage("Memuat...");
+        pd.setMessage("Menghapus Data");
         pd.setCancelable(false);
         pd.show();
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        FormatCurrency currency = new FormatCurrency();
-        StringRequest updateReq = new StringRequest(Request.Method.GET, URL_DETAILKERANJANG + intentidkeranjang,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_HAPUSKERANJANG,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         pd.cancel();
-                        try {
-                            JSONArray jArray = new JSONArray(response);
-                            for(int i=0;i<jArray.length();i++){
-                                JSONObject res = jArray.getJSONObject(i);
-                                tvidproduk.setText(res.getString("idproduk").trim());
-                                tvidpenjual.setText(res.getString("idpenjual").trim());
-                                tvnamaproduk.setText(res.getString("namaproduk").trim());
-                                tvstok.setText(res.getString("stok").trim());
-                                tvhargaproduk.setText(currency.formatRupiah(res.getString("hargaproduk").trim()));
-                                tvdeskripsi.setText(res.getString("deskripsi").trim());
-                                tvidkeranjang.setText(res.getString("idkeranjang").trim());
-                                tvidpengguna.setText(res.getString("idpengguna").trim());
-                                tvjumlah.setText(res.getString("jumlah").trim());
-                                bayaralamat.setText(getAlamat);
-                                bayartelp.setText(getTelp);
-
-                                String harga    = res.getString("hargaproduk").trim();
-                                String jumlah   = res.getString("jumlah").trim();
-
-                                Glide.with(Pembayaran.this).load(res.getString("gambarproduk")).centerCrop().into(gambarproduk);
-
-                                int totalbayar  = Integer.parseInt(harga) * Integer.parseInt(jumlah);
-
-                                tvtotalbayar.setText(currency.formatRupiah(String.valueOf(totalbayar)));
-                                tvtotalbayar.setContentDescription(String.valueOf(totalbayar));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(Pembayaran.this);
-                            builder.setTitle("Kesalahan Memuat").
-                                    setIcon(R.mipmap.ic_warning_foreground).
-                                    setMessage("Terdapat Kesalahan saat memuat data");
-                            builder.setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-                            AlertDialog alert11 = builder.create();
-                            alert11.show();
-
-                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -308,19 +386,39 @@ public class Pembayaran extends AppCompatActivity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Pembayaran.this);
                         builder.setTitle("Kesalahan Jaringan").
                                 setIcon(R.mipmap.ic_kesalahan_jaringan_foreground).
-                                setMessage("Terdapat kesalahan jaringan saat memuat data");
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                                setMessage("Terdapat kesalahan jaringan saat melakukan update");
+                        builder.setPositiveButton("Ulangi",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        builder.setNegativeButton("Batal",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent i = new Intent(Pembayaran.this, PenjualMain.class);
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                });
                         AlertDialog alert11 = builder.create();
                         alert11.show();
 
                     }
                 }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("idkeranjang",tvidkeranjang.getText().toString());
+                System.out.println(map);
+
+                return map;
+            }
         };
 
-        queue.add(updateReq);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
     }
+
 }

@@ -105,6 +105,7 @@ public class Akun extends AppCompatActivity {
                                 sessionManager.logout();
                                 Intent i = new Intent(Akun.this, Login.class);
                                 startActivity(i);
+                                finish();
                             }
                         });
                 builder.setNegativeButton("Tidak",

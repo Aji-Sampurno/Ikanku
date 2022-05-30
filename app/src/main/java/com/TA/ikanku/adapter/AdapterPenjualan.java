@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.TA.ikanku.ui.penjualan.DetailPenjualan;
 import com.bumptech.glide.Glide;
 import com.TA.ikanku.R;
 import com.TA.ikanku.model.ModelDataPesanan;
@@ -93,7 +94,7 @@ public class AdapterPenjualan  extends RecyclerView.Adapter<AdapterPenjualan.Hol
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent update = new Intent(context, Penjualan.class);
+                    Intent update = new Intent(context, DetailPenjualan.class);
                     update.putExtra("update",1);
                     update.putExtra("idproduk",md.getIdProduk());
                     update.putExtra("idpenjual",md.getIdPenjual());

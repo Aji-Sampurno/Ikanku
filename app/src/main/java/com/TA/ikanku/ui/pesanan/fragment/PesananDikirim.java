@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.TA.ikanku.adapter.AdapterPesanan;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,7 +23,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.TA.ikanku.Preferences;
 import com.TA.ikanku.R;
-import com.TA.ikanku.adapter.AdapterPesananDikirim;
 import com.TA.ikanku.ui.SessionManager;
 import com.TA.ikanku.model.ModelDataPesanan;
 import com.TA.ikanku.ui.penjual.fragment.PenjualProduk;
@@ -59,7 +59,7 @@ public class PesananDikirim extends Fragment {
 
         mManager        = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         mRecyclerview.setLayoutManager(mManager);
-        mAdapter        = new AdapterPesananDikirim(getActivity(),mItems);
+        mAdapter        = new AdapterPesanan(getActivity(),mItems);
         mRecyclerview.setAdapter(mAdapter);
 
         sessionManager  = new SessionManager(getActivity());

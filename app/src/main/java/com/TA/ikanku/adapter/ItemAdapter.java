@@ -85,7 +85,7 @@ public class ItemAdapter extends BaseAdapter {
             toastMsg("Tugas di hapus");
         } catch (Exception e) {
             e.printStackTrace();
-            toastMsg("Oppss.. ada kesalahan saat menghapus");
+            toastMsg("Terdapat kesalahan saat hapus tugas");
         }
     }
 

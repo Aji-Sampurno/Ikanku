@@ -12,12 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="?attr/actionBarSize"
             android:orientation="vertical">
 
             <ImageView
@@ -62,6 +64,38 @@
                             style="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/thirdcolor"
                             android:text="Harga produk"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:weightSum="3"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Laporkan produk jika dirasa berbahaya"/>
+
+                        <Button
+                            android:id="@+id/btnlaporan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Laporkan"
+                            android:textSize="12sp"
+                            android:backgroundTint="@color/red"/>
 
                     </LinearLayout>
 
@@ -195,6 +229,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:inputType="number"
                 android:hint="0"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"/>

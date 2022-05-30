@@ -36,8 +36,7 @@ public class RegistrasiPenjual extends AppCompatActivity {
     private Button      btnregister;
     private ProgressBar loading;
     SessionManager      sessionManager;
-    String              getId;
-    private static String URL_AKUN          = "https://pusatbelanjaikan.000webhostapp.com/read_detail.php";
+    String getId,getUsername,getNama,getTelp,getAlamat,getNamatoko,getStatus;
     private static String URL_DAFTARPENJUAL = "https://pusatbelanjaikan.000webhostapp.com/register_penjual.php";
 
     @Override
@@ -59,6 +58,18 @@ public class RegistrasiPenjual extends AppCompatActivity {
 
         HashMap<String, String> user = sessionManager.getUserDetail();
         getId = user.get(sessionManager.ID_PENGGUNA);
+        getUsername = user.get(sessionManager.USERNAME);
+        getNama = user.get(sessionManager.NAMA);
+        getTelp = user.get(sessionManager.TELP);
+        getAlamat = user.get(sessionManager.ALAMAT);
+        getNamatoko = user.get(sessionManager.NAMATOKO);
+        getStatus = user.get(sessionManager.STATUS);
+
+        username.setText(getUsername);
+        nama.setText(getUsername);
+        telp.setText(getUsername);
+        alamat.setText(getUsername);
+        namatoko.setText(getUsername);
 
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,95 +79,9 @@ public class RegistrasiPenjual extends AppCompatActivity {
         });
     }
 
-    private void getUserDetail(){
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_AKUN,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        Log.i(TAG, response.toString());
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("read");
-
-                            if (success.equals("1")){
-                                for (int i = 0; i<jsonArray.length(); i++){
-                                    JSONObject object = jsonArray.getJSONObject(i);
-
-                                    String strUsername = object.getString("username").trim();
-                                    String strNama = object.getString("nama").trim();
-                                    String strTelp = object.getString("telp").trim();
-                                    String strAlamat = object.getString("alamat").trim();
-
-                                    username.setText(strUsername);
-                                    nama.setText(strNama);
-                                    telp.setText(strTelp);
-                                    alamat.setText(strAlamat);
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(RegistrasiPenjual.this);
-                            builder.setTitle("Kesalahan Memuat").
-                                    setIcon(R.mipmap.ic_warning_foreground).
-                                    setMessage("Terdapat Kesalahan saat memuat data");
-                            builder.setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-                            AlertDialog alert11 = builder.create();
-                            alert11.show();
-
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RegistrasiPenjual.this);
-                        builder.setTitle("Kesalahan Jaringan").
-                                setIcon(R.mipmap.ic_kesalahan_jaringan_foreground).
-                                setMessage("Terdapat kesalahan jaringan saat memuat data");
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                        AlertDialog alert11 = builder.create();
-                        alert11.show();
-
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("id_pengguna",getId);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        getUserDetail();
     }
 
     private void SaveDetail() {
@@ -202,7 +127,7 @@ public class RegistrasiPenjual extends AppCompatActivity {
                             btnregister.setVisibility(View.VISIBLE);
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(RegistrasiPenjual.this);
-                            builder.setTitle("Kesalahan Memuat").
+                            builder.setTitle("Registrasi Gagal").
                                     setIcon(R.mipmap.ic_warning_foreground).
                                     setMessage("Terdapat Kesalahan saat memuat data");
                             builder.setPositiveButton("OK",

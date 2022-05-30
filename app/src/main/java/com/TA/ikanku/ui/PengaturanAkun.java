@@ -41,9 +41,8 @@ public class PengaturanAkun extends AppCompatActivity {
     private EditText username,nama,telp,alamat,namatoko,status;
     private Button btnlogout;
     SessionManager sessionManager;
-    String getId;
+    String getId,getUsername,getNama,getTelp,getAlamat,getNamatoko,getStatus;
     private Menu action;
-    private static String URL_AKUN = "https://pusatbelanjaikan.000webhostapp.com/read_detail.php";
     private static String URL_EDITAKUN = "https://pusatbelanjaikan.000webhostapp.com/edit_detail.php";
 
     @Override
@@ -63,6 +62,19 @@ public class PengaturanAkun extends AppCompatActivity {
 
         HashMap<String, String> user = sessionManager.getUserDetail();
         getId = user.get(sessionManager.ID_PENGGUNA);
+        getUsername = user.get(sessionManager.USERNAME);
+        getNama = user.get(sessionManager.NAMA);
+        getTelp = user.get(sessionManager.TELP);
+        getAlamat = user.get(sessionManager.ALAMAT);
+        getNamatoko = user.get(sessionManager.NAMATOKO);
+        getStatus = user.get(sessionManager.STATUS);
+
+        username.setText(getUsername);
+        nama.setText(getNama);
+        telp.setText(getTelp);
+        alamat.setText(getAlamat);
+        namatoko.setText(getNamatoko);
+        status.setText(getStatus);
 
         btnlogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,121 +104,9 @@ public class PengaturanAkun extends AppCompatActivity {
         });
     }
 
-    private void getUserDetail(){
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_AKUN,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        Log.i(TAG, response.toString());
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("read");
-
-                            if (success.equals("1")){
-                                for (int i = 0; i<jsonArray.length(); i++){
-                                    JSONObject object = jsonArray.getJSONObject(i);
-
-                                    String strUsername = object.getString("username").trim();
-                                    String strNama = object.getString("nama").trim();
-                                    String strTelp = object.getString("telp").trim();
-                                    String strAlamat = object.getString("alamat").trim();
-                                    String strNamatoko = object.getString("namatoko").trim();
-                                    String strStatus = object.getString("status").trim();
-
-                                    username.setText(strUsername);
-                                    nama.setText(strNama);
-                                    telp.setText(strTelp);
-                                    alamat.setText(strAlamat);
-                                    namatoko.setText(strNamatoko);
-                                    status.setText(strStatus);
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(PengaturanAkun.this);
-                            builder.setTitle("Kesalahan Memuat").
-                                    setIcon(R.mipmap.ic_warning_foreground).
-                                    setMessage("Terdapat kesalahan jaringan saat memuat update");
-                            builder.setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-                            builder.setNegativeButton("Kembali",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            if (status.equals("1")){
-                                                Intent intent = new Intent(PengaturanAkun.this, PembeliMain.class);
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                Intent intent = new Intent(PengaturanAkun.this, PenjualMain.class);
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                        }
-                                    });
-                            AlertDialog alert11 = builder.create();
-                            alert11.show();
-
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(PengaturanAkun.this);
-                        builder.setTitle("Kesalahan Jaringan").
-                                setIcon(R.mipmap.ic_kesalahan_jaringan_foreground).
-                                setMessage("Terdapat kesalahan jaringan saat melakukan update");
-                        builder.setNegativeButton("Kembali",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        if (status.equals("1")){
-                                            Intent intent = new Intent(PengaturanAkun.this, PembeliMain.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {
-                                            Intent intent = new Intent(PengaturanAkun.this, PenjualMain.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    }
-                                });
-                        AlertDialog alert11 = builder.create();
-                        alert11.show();
-
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("id_pengguna",getId);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        getUserDetail();
     }
 
     @Override

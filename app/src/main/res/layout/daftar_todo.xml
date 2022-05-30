@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="ContentDescription,
-    UselessParent,UseCompoundDrawables,HardcodedText">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="ContentDescription,UselessParent,UseCompoundDrawables,HardcodedText"
+    app:cardElevation="9dp"
+    app:cardCornerRadius="5dp"
+    android:layout_marginBottom="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/delete"
@@ -19,7 +21,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_delete" />
+            android:background="@drawable/ic_delete"
+            android:backgroundTint="@color/red"/>
 
         <LinearLayout
             android:id="@+id/titleRow"
@@ -34,7 +37,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/badge"/>
+                android:background="@drawable/ic_laporan"
+                android:backgroundTint="@color/maincolor"/>
 
             <TextView
                 android:id="@+id/title"
@@ -59,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_jadwal" />
+                android:background="@drawable/ic_jadwal"
+                android:backgroundTint="@color/maincolor"/>
 
             <TextView
                 android:id="@+id/dateTitle"
@@ -85,7 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/ic_jadwal"
+                android:background="@drawable/ic_clock"
+                android:backgroundTint="@color/maincolor"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -99,5 +105,7 @@
                 android:textSize="12sp" />
 
         </LinearLayout>
+
     </RelativeLayout>
-</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

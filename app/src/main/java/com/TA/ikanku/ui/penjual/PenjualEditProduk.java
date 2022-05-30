@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.TA.ikanku.R;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,14 +41,13 @@ public class PenjualEditProduk extends AppCompatActivity {
     TextView idproduk;
     EditText namaproduk,stok,hargaproduk,deskripsi;
     Button btnhapus;
-    ImageView gambarproduk;
     private ProgressBar loading;
     ProgressDialog pd;
     String getId;
     Bitmap bitmap;
     private Menu action;
     final int CODE_GALLERY_REQUEST = 999;
-    private static String URL_DETAILPRODUK="https://jualanikan.000webhostapp.com/Penjual/DetailProduk?idproduk=";
+//    private static String URL_DETAILPRODUK="https://jualanikan.000webhostapp.com/Penjual/DetailProduk?idproduk=";
     private static String URL_EDITPRODUK="https://jualanikan.000webhostapp.com/Penjual/EditProduk";
     private static String URL_DELETEPRODUK="https://jualanikan.000webhostapp.com/Penjual/DeleteProduk";
 
@@ -57,7 +57,14 @@ public class PenjualEditProduk extends AppCompatActivity {
         setContentView(R.layout.activity_penjual_edit_produk);
 
         Intent data = getIntent();
-        String intentidproduk = data.getStringExtra("idproduk");
+        final int update          = data.getIntExtra("update",0);
+        String intentidproduk     = data.getStringExtra("idproduk");
+        String intentidpenjual    = data.getStringExtra("idpenjual");
+        String intentnamaproduk   = data.getStringExtra("namaproduk");
+        String intentstok         = data.getStringExtra("stok");
+        String intenthargaproduk  = data.getStringExtra("hargaproduk");
+        String intentdeskripsi    = data.getStringExtra("deskripsi");
+        String intentgambarproduk = data.getStringExtra("gambarproduk");
 
         idproduk = (TextView) findViewById(R.id.editidproduk);
         namaproduk = (EditText) findViewById(R.id.editnamaproduk);
@@ -67,7 +74,16 @@ public class PenjualEditProduk extends AppCompatActivity {
         btnhapus = (Button) findViewById(R.id.btn_hapus);
         pd = new ProgressDialog(PenjualEditProduk.this);
 
-        loadJson(intentidproduk);
+        if(update == 1)
+        {
+            idproduk.setText(intentidproduk);
+            namaproduk.setText(intentnamaproduk);
+            stok.setText(intentstok);
+            hargaproduk.setText(intenthargaproduk);
+            deskripsi.setText(intentdeskripsi);
+        }
+
+//        loadJson(intentidproduk);
 
         btnhapus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,71 +110,71 @@ public class PenjualEditProduk extends AppCompatActivity {
         });
     }
 
-    private void loadJson(String intentidproduk)
-    {
-        pd.setMessage("Memuat...");
-        pd.setCancelable(false);
-        pd.show();
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest updateReq = new StringRequest(Request.Method.GET, URL_DETAILPRODUK + intentidproduk,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        pd.cancel();
-                        try {
-                            JSONArray jArray = new JSONArray(response);
-                            for(int i=0;i<jArray.length();i++){
-                                JSONObject res = jArray.getJSONObject(i);
-                                idproduk.setText(res.getString("idproduk").trim());
-                                namaproduk.setText(res.getString("namaproduk").trim());
-                                stok.setText(res.getString("stok").trim());
-                                hargaproduk.setText(res.getString("hargaproduk").trim());
-                                deskripsi.setText(res.getString("deskripsi").trim());
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(PenjualEditProduk.this);
-                            builder.setTitle("Kesalahan Memuat").
-                                    setIcon(R.mipmap.ic_warning_foreground).
-                                    setMessage("Terdapat Kesalahan saat memuat data");
-                            builder.setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-                            AlertDialog alert11 = builder.create();
-                            alert11.show();
-
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        pd.cancel();
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(PenjualEditProduk.this);
-                        builder.setTitle("Kesalahan Jaringan").
-                                setIcon(R.mipmap.ic_kesalahan_jaringan_foreground).
-                                setMessage("Terdapat kesalahan jaringan saat memuat data");
-                        builder.setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                        AlertDialog alert11 = builder.create();
-                        alert11.show();
-
-                    }
-                }){
-        };
-
-        queue.add(updateReq);
-    }
+//    private void loadJson(String intentidproduk)
+//    {
+//        pd.setMessage("Memuat...");
+//        pd.setCancelable(false);
+//        pd.show();
+//
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        StringRequest updateReq = new StringRequest(Request.Method.GET, URL_DETAILPRODUK + intentidproduk,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        pd.cancel();
+//                        try {
+//                            JSONArray jArray = new JSONArray(response);
+//                            for(int i=0;i<jArray.length();i++){
+//                                JSONObject res = jArray.getJSONObject(i);
+//                                idproduk.setText(res.getString("idproduk").trim());
+//                                namaproduk.setText(res.getString("namaproduk").trim());
+//                                stok.setText(res.getString("stok").trim());
+//                                hargaproduk.setText(res.getString("hargaproduk").trim());
+//                                deskripsi.setText(res.getString("deskripsi").trim());
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(PenjualEditProduk.this);
+//                            builder.setTitle("Kesalahan Memuat").
+//                                    setIcon(R.mipmap.ic_warning_foreground).
+//                                    setMessage("Terdapat Kesalahan saat memuat data");
+//                            builder.setPositiveButton("OK",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//                                            dialog.cancel();
+//                                        }
+//                                    });
+//                            AlertDialog alert11 = builder.create();
+//                            alert11.show();
+//
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        pd.cancel();
+//
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(PenjualEditProduk.this);
+//                        builder.setTitle("Kesalahan Jaringan").
+//                                setIcon(R.mipmap.ic_kesalahan_jaringan_foreground).
+//                                setMessage("Terdapat kesalahan jaringan saat memuat data");
+//                        builder.setPositiveButton("OK",
+//                                new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int id) {
+//                                        dialog.cancel();
+//                                    }
+//                                });
+//                        AlertDialog alert11 = builder.create();
+//                        alert11.show();
+//
+//                    }
+//                }){
+//        };
+//
+//        queue.add(updateReq);
+//    }
 
     private void Update_data()
     {
