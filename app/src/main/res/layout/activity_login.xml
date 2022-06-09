@@ -71,7 +71,7 @@
         android:id="@+id/register"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnSecondary"
         android:text="Belum Mempunyai Akun ? Daftar"
         android:layout_alignParentBottom="true"/>
 

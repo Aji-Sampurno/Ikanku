@@ -28,6 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:hint="Username"
             android:id="@+id/username"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -42,6 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:hint="Nama"
             android:id="@+id/nama"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -55,6 +59,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:inputType="text"
             android:hint="Alamat"
             android:id="@+id/alamat"/>
@@ -85,6 +91,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:inputType="phone"
             android:hint="No Telephone"
             android:id="@+id/telp"/>

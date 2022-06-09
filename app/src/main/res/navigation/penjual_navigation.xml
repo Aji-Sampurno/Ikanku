@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/navigation_laporan"
-        android:name="com.TA.ikanku.ui.penjual.fragment.PenjualLaporan"
+        android:name="com.TugasAkhir.ikanku.ui.penjual.fragment.PenjualLaporan"
         android:label="Laporan"
         tools:layout="@layout/fragment_penjual_laporan" />
     <fragment
         android:id="@+id/navigation_edukasi"
-        android:name="com.TA.ikanku.ui.penjual.fragment.PenjualEdukasi"
+        android:name="com.TugasAkhir.ikanku.ui.penjual.fragment.PenjualEdukasi"
         android:label="Edukasi"
         tools:layout="@layout/fragment_penjual_edukasi" />
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.TA.ikanku.ui.penjual.fragment.PenjualDashboard"
+        android:name="com.TugasAkhir.ikanku.ui.penjual.fragment.PenjualDashboard"
         android:label="Dashboard"
         tools:layout="@layout/fragment_penjual_dashboard" />
     <fragment
         android:id="@+id/navigation_jadwal"
-        android:name="com.TA.ikanku.ui.penjual.fragment.PenjualJadwal"
+        android:name="com.TugasAkhir.ikanku.ui.penjual.fragment.PenjualJadwal"
         android:label="Jadwal"
         tools:layout="@layout/fragment_penjual_jadwal" />
     <fragment
         android:id="@+id/navigation_produk"
-        android:name="com.TA.ikanku.ui.penjual.fragment.PenjualProduk"
+        android:name="com.TugasAkhir.ikanku.ui.penjual.fragment.PenjualProduk"
         android:label="Produk"
         tools:layout="@layout/fragment_penjual_produk" />
 </navigation>

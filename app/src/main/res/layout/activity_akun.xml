@@ -245,7 +245,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnSecondary"
                         android:textSize="15dp"
                         android:text="Pengaturan Akun"/>
 
@@ -255,7 +255,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:src="@drawable/ic_next"
-                        app:tint="@color/black" />
+                        android:textColor="?attr/colorOnSecondary" />
 
                 </LinearLayout>
 
@@ -286,7 +286,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnSecondary"
                         android:textSize="15dp"
                         android:text="Pusat Bantuan"/>
 
@@ -296,7 +296,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:src="@drawable/ic_next"
-                        app:tint="@color/black" />
+                        android:textColor="?attr/colorOnSecondary" />
 
                 </LinearLayout>
 
@@ -316,7 +316,7 @@
         android:gravity="center"
         android:background="@drawable/btn"
         android:layout_marginBottom="?attr/actionBarSize"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnSecondary"
         android:text="LOGOUT"/>
 
 </RelativeLayout>

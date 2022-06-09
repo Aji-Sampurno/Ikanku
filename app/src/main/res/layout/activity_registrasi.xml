@@ -120,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnSecondary"
         android:text="Sudah Mempunyai Akun ? Login"
         android:layout_alignParentBottom="true"/>
 

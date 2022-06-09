@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.TA.ikanku">
+    package="com.TugasAkhir.ikanku">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -9,6 +9,12 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START"/>
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_icon"
@@ -16,9 +22,10 @@
         android:roundIcon="@mipmap/ic_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ikanku">
-        <activity android:name=".ui.penjual.DetailEdukasi"></activity>
-        <activity android:name=".ui.penjualan.DetailPenjualan" />
-        <activity android:name=".ui.SplashScreen">
+        <activity android:name="com.TugasAkhir.ikanku.ui.penjual.PlayVideo"></activity>
+        <activity android:name="com.TugasAkhir.ikanku.ui.penjual.DetailEdukasi" />
+        <activity android:name="com.TugasAkhir.ikanku.ui.penjualan.DetailPenjualan" />
+        <activity android:name="com.TugasAkhir.ikanku.ui.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,55 +33,55 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Pembayaran"
+            android:name="com.TugasAkhir.ikanku.ui.Pembayaran"
             android:label="Pembayaran" />
         <activity
-            android:name=".ui.Pesanan"
+            android:name="com.TugasAkhir.ikanku.ui.Pesanan"
             android:label="@string/title_activity_pesanan"
             android:theme="@style/Theme.Ikanku.NoActionBar" />
         <activity
-            android:name=".ui.PengaturanAkun"
+            android:name="com.TugasAkhir.ikanku.ui.PengaturanAkun"
             android:label="Pengaturan Akun" />
         <activity
-            android:name=".ui.Keranjang"
+            android:name="com.TugasAkhir.ikanku.ui.Keranjang"
             android:label="Keranjang" />
         <activity
-            android:name=".ui.Akun"
+            android:name="com.TugasAkhir.ikanku.ui.Akun"
             android:label="Akun" />
         <activity
-            android:name=".ui.DetailProduk"
+            android:name="com.TugasAkhir.ikanku.ui.DetailProduk"
             android:label="Detail Produk" />
         <activity
-            android:name=".ui.penjual.PenjualEditProduk"
+            android:name="com.TugasAkhir.ikanku.ui.penjual.PenjualEditProduk"
             android:label="Edit Produk" />
         <activity
-            android:name=".ui.penjual.PenjualTambahProduk"
+            android:name="com.TugasAkhir.ikanku.ui.penjual.PenjualTambahProduk"
             android:label="Tambah Produk" />
         <activity
-            android:name=".ui.penjual.PenjualMain"
+            android:name="com.TugasAkhir.ikanku.ui.penjual.PenjualMain"
             android:label="Ikanku" />
-        <activity android:name=".ui.Login" />
+        <activity android:name="com.TugasAkhir.ikanku.ui.Login" />
         <activity
-            android:name=".ui.Registrasi"
+            android:name="com.TugasAkhir.ikanku.ui.Registrasi"
             android:label="Registrasi" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.TugasAkhir.ikanku.MainActivity"
             android:label="Ikanku" />
         <activity
-            android:name=".ui.pesanan.DetailPesanan"
+            android:name="com.TugasAkhir.ikanku.ui.pesanan.DetailPesanan"
             android:label="Pesanan" />
         <activity
-            android:name=".ui.Penjualan"
+            android:name="com.TugasAkhir.ikanku.ui.Penjualan"
             android:label="Penjualan"
             android:theme="@style/Theme.Ikanku.NoActionBar" />
         <activity
-            android:name=".ui.RegistrasiPenjual"
+            android:name="com.TugasAkhir.ikanku.ui.RegistrasiPenjual"
             android:label="Registrasi Penjual" />
         <activity
-            android:name=".ui.pembeli.PembeliMain"
+            android:name="com.TugasAkhir.ikanku.ui.pembeli.PembeliMain"
             android:label="Ikanku" />
 
-        <receiver android:name=".util.Notifikasi" />
+        <receiver android:name="com.TugasAkhir.ikanku.util.Notifikasi" />
     </application>
 
 </manifest>
