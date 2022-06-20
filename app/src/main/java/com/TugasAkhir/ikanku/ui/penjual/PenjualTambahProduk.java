@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -21,6 +23,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.TugasAkhir.ikanku.ui.DetailProduk;
+import com.TugasAkhir.ikanku.ui.Keranjang;
+import com.TugasAkhir.ikanku.ui.pembeli.PembeliMain;
 import com.TugasAkhir.ikanku.util.ServerApi;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -149,13 +154,22 @@ public class PenjualTambahProduk extends AppCompatActivity {
                         pd.cancel();
                         try {
                             JSONObject res = new JSONObject(response);
-                            Toast.makeText(PenjualTambahProduk.this, response, Toast.LENGTH_SHORT).show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(PenjualTambahProduk.this);
+                            builder.setTitle("Tambah Produk").
+                                    setIcon(R.mipmap.ic_sukses_foreground).
+                                    setMessage("Produk berhasil ditambahkan");
+                            builder.setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            startActivity( new Intent(PenjualTambahProduk.this,PenjualMain.class));
+                                            finish();
+                                        }
+                                    });
+                            AlertDialog alert11 = builder.create();
+                            alert11.show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-                        startActivity( new Intent(PenjualTambahProduk.this,PenjualMain.class));
-                        finish();
                     }
                 },
                 new Response.ErrorListener() {

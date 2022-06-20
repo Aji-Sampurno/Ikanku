@@ -1,5 +1,7 @@
 package com.TugasAkhir.ikanku.model;
 
+import java.nio.charset.Charset;
+
 public class ModelDataProduk {String idproduk, idpenjual, namaproduk, stok, hargaproduk, deskripsi, gambarproduk;
 
     public ModelDataProduk(){}
@@ -58,4 +60,8 @@ public class ModelDataProduk {String idproduk, idpenjual, namaproduk, stok, harg
     public String getGambarproduk() { return gambarproduk; }
 
     public void setGambarproduk(String gambarproduk) { this.gambarproduk = gambarproduk; }
+
+    public Charset toLowerCase() {
+        return toLowerCase();
+    }
 }

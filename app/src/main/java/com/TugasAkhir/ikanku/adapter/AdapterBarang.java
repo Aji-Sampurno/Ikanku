@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,10 +18,11 @@ import com.TugasAkhir.ikanku.model.ModelDataProduk;
 import com.TugasAkhir.ikanku.ui.DetailProduk;
 import com.TugasAkhir.ikanku.util.FormatCurrency;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //digunakan untuk membuat public class bernama AdapterData dan merupakan extend dari class RecyclerView.Adapter<AdapterData.HolderData>
-public class AdapterBarang extends RecyclerView.Adapter<AdapterBarang.HolderData>{
+public class AdapterBarang extends RecyclerView.Adapter<AdapterBarang.HolderData> {
     private List<ModelDataProduk> mItems ;
     private Context context;
 
@@ -55,7 +58,6 @@ public class AdapterBarang extends RecyclerView.Adapter<AdapterBarang.HolderData
     public int getItemCount() {
         return mItems.size();
     }
-
 
     class HolderData extends RecyclerView.ViewHolder
     {

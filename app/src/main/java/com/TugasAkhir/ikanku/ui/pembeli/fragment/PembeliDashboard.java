@@ -2,17 +2,29 @@ package com.TugasAkhir.ikanku.ui.pembeli.fragment;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.TugasAkhir.ikanku.util.ServerApi;
 import com.android.volley.Request;
@@ -55,7 +67,6 @@ public class PembeliDashboard extends Fragment {
         refreshLayout = root.findViewById(R.id.swiperefresh);
         mItems = new ArrayList<>();
 
-//        DaftarProduk();
         loadJson(true);
 
         sessionManager = new SessionManager(getActivity());
@@ -72,10 +83,10 @@ public class PembeliDashboard extends Fragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                DaftarProduk();
                 loadJson(false);
             }
         });
+
         return root;
     }
 
@@ -123,10 +134,8 @@ public class PembeliDashboard extends Fragment {
                                         });
                                 AlertDialog alert11 = builder.create();
                                 alert11.show();
-
                             }
                         }
-
                         mAdapter.notifyDataSetChanged();
                     }
                 },
@@ -148,10 +157,8 @@ public class PembeliDashboard extends Fragment {
                                 });
                         AlertDialog alert11 = builder.create();
                         alert11.show();
-
                     }
                 });
-
         queue.add(reqData);
     }
 }

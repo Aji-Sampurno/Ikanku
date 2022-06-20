@@ -2,7 +2,7 @@ package com.TugasAkhir.ikanku.util;
 
 public class ServerApi {
 
-    private static final String BASE_URL                    = "https://jualanikan.000webhostapp.com/Penjual";
+    private static final String BASE_URL                    = "https://jualikanku.my.id/Penjual";
     public static final String URL_LOGIN                    = BASE_URL + "/Login";
     public static final String URL_DAFTARPENGGUNA           = BASE_URL + "/Daftar_Pengguna";
     public static final String URL_DAFTARPENJUAL            = BASE_URL + "/Daftar_Penjual";

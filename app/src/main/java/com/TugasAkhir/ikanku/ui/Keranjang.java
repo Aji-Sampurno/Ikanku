@@ -1,6 +1,8 @@
 package com.TugasAkhir.ikanku.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -68,6 +70,19 @@ public class Keranjang extends AppCompatActivity {
                 loadJson(false);
             }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                mItems.remove(viewHolder.getAdapterPosition());
+                mAdapter.notifyDataSetChanged();
+            }
+        }).attachToRecyclerView(mRecyclerview);
     }
 
     private void loadJson(boolean showProgressDialog)
