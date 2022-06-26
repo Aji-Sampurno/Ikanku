@@ -1,13 +1,14 @@
 package com.TugasAkhir.ikanku.model;
 
-public class ModelDataKeranjang {String idproduk, idpenjual, namaproduk, stok, hargaproduk, deskripsi, idkeranjang, idpengguna, jumlah, gambarproduk;
+public class ModelDataKeranjang {String idproduk, idpenjual, namaproduk, kategoriproduk, stok, hargaproduk, deskripsi, idkeranjang, idpengguna, jumlah, gambarproduk;
 
     public ModelDataKeranjang(){}
 
-    public ModelDataKeranjang(String idproduk, String idpenjual, String namaproduk, String stok, String hargaproduk, String deskripsi, String idkeranjang, String idpengguna, String jumlah, String gambarproduk) {
+    public ModelDataKeranjang(String idproduk, String idpenjual, String namaproduk, String kategoriproduk, String stok, String hargaproduk, String deskripsi, String idkeranjang, String idpengguna, String jumlah, String gambarproduk) {
         this.idproduk = idproduk;
         this.idpenjual = idpenjual;
         this.namaproduk = namaproduk;
+        this.kategoriproduk = kategoriproduk;
         this.stok = stok;
         this.hargaproduk = hargaproduk;
         this.deskripsi = deskripsi;
@@ -36,6 +37,14 @@ public class ModelDataKeranjang {String idproduk, idpenjual, namaproduk, stok, h
 
     public void setNamaProduk(String namaproduk) {
         this.namaproduk = namaproduk;
+    }
+
+    public String getKategoriProduk() {
+        return kategoriproduk;
+    }
+
+    public void setKategoriProduk(String kategoriproduk) {
+        this.kategoriproduk = kategoriproduk;
     }
 
     public String getStok() {

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.TugasAkhir.ikanku.ui.Laporan;
 import com.TugasAkhir.ikanku.util.ServerApi;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,8 +32,8 @@ import org.json.JSONObject;
 
 public class PenjualLaporan extends Fragment {
 
-    private TextView        riwayatpenjualan,pendapatan,pengeluaran,badgebaru,badgedikirim,badgeselesai;
-    private LinearLayout    baru,dikirim,selesai;
+    private TextView        riwayatpenjualan,laporan,pendapatan,pengeluaran,badgebaru,badgedikirim,badgeselesai;
+    private LinearLayout    baru,dikirim,selesai,lypendapatan,lypengeluaran;
     SessionManager          sessionManager;
 
     @Override
@@ -45,9 +46,12 @@ public class PenjualLaporan extends Fragment {
         baru             = root.findViewById(R.id.baru);
         dikirim          = root.findViewById(R.id.dikirim);
         selesai          = root.findViewById(R.id.selesai);
+        lypendapatan     = root.findViewById(R.id.pendapatan);
+        lypengeluaran    = root.findViewById(R.id.pengeluaran);
         pendapatan       = root.findViewById(R.id.tvpendapatan);
         pengeluaran      = root.findViewById(R.id.tvpengeluaran);
         riwayatpenjualan = root.findViewById(R.id.riwayatpesanan);
+        laporan          = root.findViewById(R.id.laporan);
         badgebaru        = root.findViewById(R.id.badgebaru);
         badgedikirim     = root.findViewById(R.id.badgedikirim);
         badgeselesai     = root.findViewById(R.id.badgeselesai);
@@ -84,11 +88,34 @@ public class PenjualLaporan extends Fragment {
             }
         });
 
+        laporan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getActivity(), Laporan.class);
+                getActivity().startActivity(in);
+            }
+        });
+
+        lypendapatan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getActivity(), Laporan.class);
+                getActivity().startActivity(in);
+            }
+        });
+
+        lypengeluaran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getActivity(), Laporan.class);
+                getActivity().startActivity(in);
+            }
+        });
+
         return root;
     }
 
-    private void pendapatan()
-    {
+    private void pendapatan() {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -127,8 +154,7 @@ public class PenjualLaporan extends Fragment {
         queue.add(reqData);
     }
 
-    private void pengeluaran()
-    {
+    private void pengeluaran() {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -167,8 +193,7 @@ public class PenjualLaporan extends Fragment {
         queue.add(reqData);
     }
 
-    private void pesananbaru()
-    {
+    private void pesananbaru() {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -207,8 +232,7 @@ public class PenjualLaporan extends Fragment {
         queue.add(reqData);
     }
 
-    private void pesanandikirim()
-    {
+    private void pesanandikirim() {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -246,8 +270,7 @@ public class PenjualLaporan extends Fragment {
         queue.add(reqData);
     }
 
-    private void pesananselesai()
-    {
+    private void pesananselesai() {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());

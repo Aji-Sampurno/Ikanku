@@ -9,13 +9,26 @@
     android:layout_marginBottom="?attr/actionBarSize"
     tools:context=".ui.pembeli.fragment.PembeliDashboard">
 
-<!--    <SearchView-->
-<!--        android:id="@+id/searchbarang"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/search_view_bg"-->
-<!--        android:layout_margin="8dp"-->
-<!--        android:queryHint="Cari Produk ..."/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:text="Kategori Produk"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewKategori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            tools:listitem="@layout/daftarkategori"/>
+
+    </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swiperefresh"

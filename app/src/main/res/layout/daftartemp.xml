@@ -47,55 +47,6 @@
                     android:layout_marginTop="5dp"
                     android:text="Rp. 20.000"/>
 
-                <TextView
-                    android:id="@+id/ppstok"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="0"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="deskripsi"
-                    android:id="@+id/ppdeskripsi"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="Id produk"
-                    android:id="@+id/ppidproduk"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="Kategori produk"
-                    android:id="@+id/ppkategoriproduk"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="Id penjual"
-                    android:id="@+id/ppidpenjual"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="Id penjual"
-                    android:id="@+id/ppidkeranjang"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="Id penjual"
-                    android:id="@+id/ppidpengguna"/>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -118,6 +69,30 @@
                         android:gravity="center"
                         android:text="0"
                         android:id="@+id/ppjumlah"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:text="Total"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:id="@+id/pptotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:text="Rp. 2.000.000"
+                        android:layout_weight="1"/>
 
                 </LinearLayout>
 

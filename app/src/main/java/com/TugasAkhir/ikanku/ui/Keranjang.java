@@ -10,8 +10,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import com.TugasAkhir.ikanku.ui.penjual.PenjualMain;
 import com.TugasAkhir.ikanku.util.ServerApi;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,13 +42,16 @@ import java.util.List;
 public class Keranjang extends AppCompatActivity {
 
     private static final String TAG = Keranjang.class.getSimpleName();
-    RecyclerView mRecyclerview;
-    RecyclerView.Adapter mAdapter;
-    RecyclerView.LayoutManager mManager;
-    SwipeRefreshLayout refreshLayout;
-    List<ModelDataKeranjang> mItems;
-    SessionManager sessionManager;
-    String getId;
+    MenuItem                    menuItem;
+    Menu                        action;
+    TextView                    badgeCounter;
+    RecyclerView                mRecyclerview;
+    RecyclerView.Adapter        mAdapter;
+    RecyclerView.LayoutManager  mManager;
+    SwipeRefreshLayout          refreshLayout;
+    List<ModelDataKeranjang>    mItems;
+    SessionManager              sessionManager;
+    String                      getId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +95,7 @@ public class Keranjang extends AppCompatActivity {
         }).attachToRecyclerView(mRecyclerview);
     }
 
-    private void loadJson(boolean showProgressDialog)
-    {
+    private void loadJson(boolean showProgressDialog) {
         final ProgressDialog progressDialog = new ProgressDialog(Keranjang.this);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
@@ -109,6 +118,7 @@ public class Keranjang extends AppCompatActivity {
                                 md.setIdProduk(data.getString("idproduk"));
                                 md.setIdPenjual(data.getString("idpenjual"));
                                 md.setNamaProduk(data.getString("namaproduk"));
+                                md.setKategoriProduk(data.getString("kategoriproduk"));
                                 md.setStok(data.getString("stok"));
                                 md.setHargaProduk(data.getString("hargaproduk"));
                                 md.setDeskripsi(data.getString("deskripsi"));
@@ -163,5 +173,78 @@ public class Keranjang extends AppCompatActivity {
         queue.add(reqData);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.pesanan_menu,menu);
 
+        menuItem = menu.findItem(R.id.menucheckout);
+        action = menu;
+
+        RequestQueue queue = Volley.newRequestQueue(Keranjang.this);
+        JsonArrayRequest reqData = new JsonArrayRequest(Request.Method.GET, ServerApi.URL_TEMP +  Preferences.getKeyIdPengguna(Keranjang.this),null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for(int i = 0 ; i < response.length(); i++)
+                        {
+                            try {
+                                JSONObject data = response.getJSONObject(i);
+
+                                String strTotal = data.getString("total");
+
+                                if (strTotal.equals("0")) {
+                                    menuItem.setActionView(null);
+                                } else {
+                                    menuItem.setActionView(R.layout.badge_checkout);
+                                    View view = menuItem.getActionView();
+                                    badgeCounter = view.findViewById(R.id.badge_counter);
+                                    badgeCounter.setText(strTotal);
+
+                                    view.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            checkout();
+                                        }
+                                    });
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+        queue.add(reqData);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void checkout(){
+        Intent intent = new Intent(Keranjang.this, Checkout.class);
+        Keranjang.this.startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menucheckout:
+
+                checkout();
+
+                return true;
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

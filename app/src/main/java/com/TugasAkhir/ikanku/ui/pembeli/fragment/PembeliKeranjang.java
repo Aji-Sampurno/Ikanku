@@ -3,17 +3,26 @@ package com.TugasAkhir.ikanku.ui.pembeli.fragment;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.TugasAkhir.ikanku.ui.Checkout;
+import com.TugasAkhir.ikanku.ui.penjual.PenjualMain;
 import com.TugasAkhir.ikanku.util.ServerApi;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -47,6 +56,10 @@ public class PembeliKeranjang extends Fragment {
     SessionManager sessionManager;
     String getId;
 
+    MenuItem menuItem;
+    TextView badgeCounter;
+    private Menu action;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,8 +91,7 @@ public class PembeliKeranjang extends Fragment {
         return root;
     }
 
-    private void loadJson(boolean showProgressDialog)
-    {
+    private void loadJson(boolean showProgressDialog) {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
@@ -156,5 +168,78 @@ public class PembeliKeranjang extends Fragment {
         queue.add(reqData);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        inflater.inflate(R.menu.pembeli_menu,menu);
+
+        menu.findItem(R.id.search).setVisible(false);
+
+        menuItem = menu.findItem(R.id.checkout);
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        JsonArrayRequest reqData = new JsonArrayRequest(Request.Method.GET, ServerApi.URL_TEMP +  Preferences.getKeyIdPengguna(getActivity()),null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for(int i = 0 ; i < response.length(); i++)
+                        {
+                            try {
+                                JSONObject data = response.getJSONObject(i);
+
+                                String strTotal = data.getString("total");
+
+                                if (strTotal.equals("0")) {
+                                    menuItem.setActionView(null);
+                                } else {
+                                    menuItem.setActionView(R.layout.badge_checkout);
+                                    View view = menuItem.getActionView();
+                                    badgeCounter = view.findViewById(R.id.badge_counter);
+                                    badgeCounter.setText(strTotal);
+
+                                    view.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(getActivity(), Checkout.class);
+                                            getActivity().startActivity(intent);
+                                        }
+                                    });
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+        queue.add(reqData);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.checkout){
+            Intent intent = new Intent(getActivity(), Checkout.class);
+            getActivity().startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

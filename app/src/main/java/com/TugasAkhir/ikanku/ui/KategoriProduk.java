@@ -1,23 +1,19 @@
-package com.TugasAkhir.ikanku.ui.penjual.fragment;
+package com.TugasAkhir.ikanku.ui;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 
 import com.TugasAkhir.ikanku.R;
-import com.TugasAkhir.ikanku.adapter.AdapterEdukasi;
-import com.TugasAkhir.ikanku.model.ModelDataEdukasi;
-import com.TugasAkhir.ikanku.ui.SessionManager;
+import com.TugasAkhir.ikanku.adapter.AdapterBarang;
+import com.TugasAkhir.ikanku.model.ModelDataProduk;
 import com.TugasAkhir.ikanku.util.ServerApi;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,46 +21,50 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class PenjualEdukasi extends Fragment {
+public class KategoriProduk extends AppCompatActivity {
 
-    private static final String TAG = PenjualProduk.class.getSimpleName();
     RecyclerView mRecyclerview;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mManager;
     SwipeRefreshLayout refreshLayout;
-    List<ModelDataEdukasi> mItems;
-    SessionManager sessionManager;
-    String getId;
+    List<ModelDataProduk> mItems;
+    String id,namakategori;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_penjual_edukasi, container, false);
-        mRecyclerview = root.findViewById(R.id.recyclerviewEdukasi);
-        refreshLayout = root.findViewById(R.id.swiperefresh);
-        mItems = new ArrayList<>();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_kategori_produk);
+
+        Intent data = getIntent();
+        final int update = data.getIntExtra("update",0);
+        String intentidkategori = data.getStringExtra("idkategori");
+        String intentnamakategori = data.getStringExtra("namakategori");
+        String intentgambarkategori = data.getStringExtra("gambarkategori");
+
+        if(update == 1)
+        {
+            id = intentidkategori;
+            namakategori = intentnamakategori;
+        }
 
         loadJson(true);
 
-        sessionManager = new SessionManager(getActivity());
-        sessionManager.checkLogin();
+        mRecyclerview = findViewById(R.id.recyclerviewBarang);
+        refreshLayout = findViewById(R.id.swiperefresh);
+        mItems = new ArrayList<>();
 
-        HashMap<String, String> user = sessionManager.getUserDetail();
-        getId = user.get(sessionManager.ID_PENGGUNA);
-
-        mManager = new GridLayoutManager(getActivity(),1);
+        mManager = new GridLayoutManager(this,2);
         mRecyclerview.setLayoutManager(mManager);
-        mAdapter = new AdapterEdukasi(getActivity(),mItems);
+        mAdapter = new AdapterBarang(this,mItems);
         mRecyclerview.setAdapter(mAdapter);
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -73,19 +73,18 @@ public class PenjualEdukasi extends Fragment {
                 loadJson(false);
             }
         });
-        return root;
     }
 
     private void loadJson(boolean showProgressDialog)
     {
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
         if (showProgressDialog) progressDialog.show();
         else progressDialog.cancel();
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        JsonArrayRequest reqData = new JsonArrayRequest(Request.Method.GET, ServerApi.URL_DAFTAREDUKASI,null,
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonArrayRequest reqData = new JsonArrayRequest(Request.Method.GET, ServerApi.URL_DAFTARBARANGKATEGORI + namakategori,null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -96,19 +95,19 @@ public class PenjualEdukasi extends Fragment {
                         {
                             try {
                                 JSONObject data = response.getJSONObject(i);
-                                ModelDataEdukasi md = new ModelDataEdukasi();
-                                md.setIdedukasi(data.getString("idedukasi"));
-                                md.setJudul(data.getString("judul"));
-                                md.setKategoriedukasi(data.getString("kategoriedukasi"));
-                                md.setIsi(data.getString("isi"));
-                                md.setLink(data.getString("link"));
-                                md.setSumber(data.getString("sumber"));
-                                md.setGambaredukasi(data.getString("gambar"));
+                                ModelDataProduk md = new ModelDataProduk();
+                                md.setIdProduk(data.getString("idproduk"));
+                                md.setIdPenjual(data.getString("idpenjual"));
+                                md.setNamaProduk(data.getString("namaproduk"));
+                                md.setStok(data.getString("stok"));
+                                md.setHargaProduk(data.getString("hargaproduk"));
+                                md.setDeskripsi(data.getString("deskripsi"));
+                                md.setGambarproduk(data.getString("gambarproduk"));
                                 mItems.add(md);
                             } catch (JSONException e) {
                                 e.printStackTrace();
 
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder builder = new AlertDialog.Builder(KategoriProduk.this);
                                 builder.setTitle("Kesalahan Memuat").
                                         setIcon(R.mipmap.ic_warning_foreground).
                                         setMessage("Terdapat Kesalahan saat memuat data");
@@ -120,10 +119,8 @@ public class PenjualEdukasi extends Fragment {
                                         });
                                 AlertDialog alert11 = builder.create();
                                 alert11.show();
-
                             }
                         }
-
                         mAdapter.notifyDataSetChanged();
                     }
                 },
@@ -133,7 +130,7 @@ public class PenjualEdukasi extends Fragment {
                         progressDialog.dismiss();
                         error.printStackTrace();
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(KategoriProduk.this);
                         builder.setTitle("Kesalahan Jaringan").
                                 setIcon(R.mipmap.ic_kesalahan_jaringan_foreground).
                                 setMessage("Terdapat Kesalahan jaringan saat memuat data");
@@ -145,10 +142,8 @@ public class PenjualEdukasi extends Fragment {
                                 });
                         AlertDialog alert11 = builder.create();
                         alert11.show();
-
                     }
                 });
-
         queue.add(reqData);
     }
 }

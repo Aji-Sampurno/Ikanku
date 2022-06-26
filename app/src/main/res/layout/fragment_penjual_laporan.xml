@@ -29,6 +29,45 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginRight="10dp"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_laporan"
+                        app:tint="@color/secondcolor" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Laporan Saya"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/laporan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="Lihat Detail Laporan"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/thirdcolor"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:padding="10dp"
                     android:weightSum="2">
 
@@ -172,7 +211,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="Lihat Riwayat Penjualan  >"/>
+                        android:text="Lihat Riwayat Penjualan"/>
 
                 </LinearLayout>
 

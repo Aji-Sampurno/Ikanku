@@ -45,6 +45,7 @@ public class AdapterEdukasi extends RecyclerView.Adapter<AdapterEdukasi.HolderDa
         holder.tvjudul.setText(md.getJudul());
         holder.tvisi.setText(md.getIsi());
         holder.tvlink.setText(md.getLink());
+        holder.tvsumber.setText(md.getSumber());
         Glide.with(context).load(mItems.get(position).getGambaredukasi()).centerCrop().into(holder.ivgambaredukasi);
 
         holder.md = md;
@@ -58,7 +59,7 @@ public class AdapterEdukasi extends RecyclerView.Adapter<AdapterEdukasi.HolderDa
 
     class HolderData extends RecyclerView.ViewHolder
     {
-        TextView tvidedukasi, tvjudul, tvisi, tvkategori,tvlink;
+        TextView tvidedukasi, tvjudul, tvisi, tvkategori,tvlink,tvsumber;
         ImageView ivgambaredukasi;
         ModelDataEdukasi md;
 
@@ -68,9 +69,10 @@ public class AdapterEdukasi extends RecyclerView.Adapter<AdapterEdukasi.HolderDa
 
             tvidedukasi     = (TextView) view.findViewById(R.id.ppidedukasi);
             tvjudul         = (TextView) view.findViewById(R.id.ppjuduledukasi);
-            tvkategori         = (TextView) view.findViewById(R.id.ppkategoriedukasi);
+            tvkategori      = (TextView) view.findViewById(R.id.ppkategoriedukasi);
             tvisi           = (TextView) view.findViewById(R.id.ppisiedukasi);
-            tvlink           = (TextView) view.findViewById(R.id.pplinkedukasi);
+            tvlink          = (TextView) view.findViewById(R.id.pplinkedukasi);
+            tvsumber        = (TextView) view.findViewById(R.id.ppsumberedukasi);
             ivgambaredukasi = (ImageView) view.findViewById(R.id.ppgambaredukasi);
 
             view.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +85,7 @@ public class AdapterEdukasi extends RecyclerView.Adapter<AdapterEdukasi.HolderDa
                     update.putExtra("kategoriedukasi",md.getKategoriedukasi());
                     update.putExtra("isi",md.getIsi());
                     update.putExtra("link",md.getLink());
+                    update.putExtra("sumber",md.getSumber());
                     update.putExtra("gambaredukasi",md.getGambaredukasi());
 
                     context.startActivity(update);

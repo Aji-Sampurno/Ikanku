@@ -17,7 +17,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 public class PlayVideo extends YouTubeBaseActivity {
 
-    TextView idedukasi,judul,isi,kategori;
+    TextView idedukasi,judul,isi,kategori,sumber,sumberyt,sbr;
     ImageView ivedukasi;
     YouTubePlayerView youTubePlayerView;
     LinearLayout linearLayout;
@@ -28,21 +28,25 @@ public class PlayVideo extends YouTubeBaseActivity {
         setContentView(R.layout.activity_play_video);
 
         youTubePlayerView = findViewById(R.id.ytbplayerview);
-        linearLayout = findViewById(R.id.llaertikel);
-        idedukasi = findViewById(R.id.ppidedukasi);
-        judul = findViewById(R.id.ppjuduledukasi);
-        isi = findViewById(R.id.ppisiedukasi);
-        kategori = findViewById(R.id.ppkategoriedukasi);
-        ivedukasi = findViewById(R.id.ppgambaredukasi);
+        linearLayout      = findViewById(R.id.llaertikel);
+        idedukasi         = findViewById(R.id.ppidedukasi);
+        judul             = findViewById(R.id.ppjuduledukasi);
+        isi               = findViewById(R.id.ppisiedukasi);
+        sumber            = findViewById(R.id.ppsumberedukasi);
+        sumberyt          = findViewById(R.id.tvsumberyt);
+        sbr               = findViewById(R.id.sumber);
+        kategori          = findViewById(R.id.ppkategoriedukasi);
+        ivedukasi         = findViewById(R.id.ppgambaredukasi);
 
-        Intent data = getIntent();
-        final int update = data.getIntExtra("update",0);
-        String intentidedukasi = data.getStringExtra("idedukasi");
-        String intentjudul = data.getStringExtra("judul");
-        String intentkategori = data.getStringExtra("kategoriedukasi");
-        String intentisi = data.getStringExtra("isi");
-        String intentlink = data.getStringExtra("link");
-        String intentgambar = data.getStringExtra("gambaredukasi");
+        Intent data             = getIntent();
+        final int update        = data.getIntExtra("update",0);
+        String intentidedukasi  = data.getStringExtra("idedukasi");
+        String intentjudul      = data.getStringExtra("judul");
+        String intentkategori   = data.getStringExtra("kategoriedukasi");
+        String intentisi        = data.getStringExtra("isi");
+        String intentlink       = data.getStringExtra("link");
+        String intentsumber     = data.getStringExtra("sumber");
+        String intentgambar     = data.getStringExtra("gambaredukasi");
 
         if(update == 1)
         {
@@ -50,13 +54,19 @@ public class PlayVideo extends YouTubeBaseActivity {
             judul.setText(intentjudul);
             isi.setText(intentisi);
             kategori.setText(intentkategori);
+            sumber.setText(intentsumber);
             Glide.with(PlayVideo.this).load(intentgambar).centerCrop().into(ivedukasi);
         }
 
         if (intentlink.isEmpty()){
             youTubePlayerView.setVisibility(View.GONE);
+            sumberyt.setVisibility(View.GONE);
+            sbr.setVisibility(View.GONE);
         } else {
             linearLayout.setVisibility(View.GONE);
+            sumberyt.setVisibility(View.VISIBLE);
+            sbr.setVisibility(View.VISIBLE);
+            sumberyt.setText(intentsumber);
         }
 
         YouTubePlayer.OnInitializedListener listener = new YouTubePlayer.OnInitializedListener() {

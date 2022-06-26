@@ -73,6 +73,51 @@ public class PenjualMain extends AppCompatActivity {
 
                                 if (strTotal.equals("0")) {
                                     menuItem.setActionView(null);
+
+                                    RequestQueue queue = Volley.newRequestQueue(PenjualMain.this);
+                                    JsonArrayRequest reqData = new JsonArrayRequest(Request.Method.GET, ServerApi.URL_TEMP +  Preferences.getKeyIdPengguna(PenjualMain.this),null,
+                                            new Response.Listener<JSONArray>() {
+                                                @Override
+                                                public void onResponse(JSONArray response) {
+
+                                                    for(int i = 0 ; i < response.length(); i++)
+                                                    {
+                                                        try {
+                                                            JSONObject data = response.getJSONObject(i);
+
+                                                            String strTotal = data.getString("total");
+
+                                                            if (strTotal.equals("0")) {
+                                                                menuItem.setActionView(null);
+                                                            } else {
+                                                                menuItem.setActionView(R.layout.badge_notifikasi);
+                                                                View view = menuItem.getActionView();
+                                                                badgeCounter = view.findViewById(R.id.badge_counter);
+                                                                badgeCounter.setText(strTotal);
+
+                                                                view.setOnClickListener(new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View v) {
+                                                                        keranjang();
+                                                                    }
+                                                                });
+                                                            }
+
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    error.printStackTrace();
+                                                }
+                                            });
+
+                                    queue.add(reqData);
+
                                 } else {
                                     menuItem.setActionView(R.layout.badge_notifikasi);
                                     View view = menuItem.getActionView();

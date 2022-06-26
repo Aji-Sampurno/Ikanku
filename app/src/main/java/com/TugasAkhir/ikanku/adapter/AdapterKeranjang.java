@@ -43,6 +43,7 @@ public class AdapterKeranjang extends RecyclerView.Adapter<AdapterKeranjang.Hold
         holder.tvidproduk.setText(md.getIdProduk());
         holder.tvidpenjual.setText(md.getIdPenjual());
         holder.tvnamaproduk.setText(md.getNamaProduk());
+        holder.tvkategoriproduk.setText(md.getKategoriProduk());
         holder.tvstok.setText(md.getStok());
         holder.tvhargaproduk.setText(currency.formatRupiah(md.getHargaProduk()));
         holder.tvdeskripsi.setText(md.getDeskripsi());
@@ -62,7 +63,7 @@ public class AdapterKeranjang extends RecyclerView.Adapter<AdapterKeranjang.Hold
 
     class HolderData extends RecyclerView.ViewHolder
     {
-        TextView tvidproduk, tvidpenjual, tvnamaproduk, tvstok, tvhargaproduk,tvdeskripsi,tvidkeranjang,tvidpengguna,tvjumlah;
+        TextView tvidproduk, tvidpenjual, tvnamaproduk, tvstok, tvhargaproduk,tvdeskripsi,tvidkeranjang,tvidpengguna,tvjumlah,tvkategoriproduk;
         ImageView ivgambarproduk;
         ModelDataKeranjang md;
 
@@ -73,6 +74,7 @@ public class AdapterKeranjang extends RecyclerView.Adapter<AdapterKeranjang.Hold
             tvidproduk = (TextView) view.findViewById(R.id.ppidproduk);
             tvidpenjual = (TextView) view.findViewById(R.id.ppidpenjual);
             tvnamaproduk = (TextView) view.findViewById(R.id.ppnamaproduk);
+            tvkategoriproduk = (TextView) view.findViewById(R.id.ppkategoriproduk);
             tvstok = (TextView) view.findViewById(R.id.ppstok);
             tvhargaproduk = (TextView) view.findViewById(R.id.ppharga);
             tvdeskripsi = (TextView) view.findViewById(R.id.ppdeskripsi);
@@ -90,6 +92,7 @@ public class AdapterKeranjang extends RecyclerView.Adapter<AdapterKeranjang.Hold
                     update.putExtra("idproduk",md.getIdProduk());
                     update.putExtra("idpenjual",md.getIdPenjual());
                     update.putExtra("namaproduk",md.getNamaProduk());
+                    update.putExtra("kategoriproduk",md.getKategoriProduk());
                     update.putExtra("stok",md.getStok());
                     update.putExtra("hargaproduk",md.getHargaProduk());
                     update.putExtra("deskripsi",md.getDeskripsi());

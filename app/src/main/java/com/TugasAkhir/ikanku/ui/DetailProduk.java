@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class DetailProduk extends AppCompatActivity {
 
-    TextView idproduk,namaproduk,stok,hargaproduk,deskripsi;
+    TextView idproduk,namaproduk,stok,hargaproduk,deskripsi,stokhabis;
     EditText jumlah;
     Button btnbeli,btnlaporan;
     ImageView gambarproduk,ivlaporan;
@@ -74,6 +74,7 @@ public class DetailProduk extends AppCompatActivity {
         ivlaporan    = findViewById(R.id.ivlaporan);
         btnbeli      = findViewById(R.id.btnbeli);
         btnlaporan   = findViewById(R.id.btnlaporan);
+        stokhabis    = findViewById(R.id.stokhabis);
         pd           = new ProgressDialog(DetailProduk.this);
 
         FormatCurrency currency = new FormatCurrency();
@@ -86,6 +87,23 @@ public class DetailProduk extends AppCompatActivity {
             hargaproduk.setText(currency.formatRupiah(intenthargaproduk));
             deskripsi.setText(intentdeskripsi);
             Glide.with(DetailProduk.this).load(intentgambar).centerCrop().into(gambarproduk);
+
+            Integer stoknol = Integer.valueOf(intentstok);
+            int batas = 0;
+
+            if (stoknol <= batas ){
+
+                stokhabis.setVisibility(View.VISIBLE);
+                jumlah.setVisibility(View.GONE);
+                btnbeli.setVisibility(View.GONE);
+
+            } else {
+
+                stokhabis.setVisibility(View.GONE);
+                jumlah.setVisibility(View.VISIBLE);
+                btnbeli.setVisibility(View.VISIBLE);
+
+            }
         }
 
         if (getSupportActionBar() != null) {

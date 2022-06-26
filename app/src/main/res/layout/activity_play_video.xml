@@ -13,6 +13,31 @@
         android:layout_centerInParent="true"/>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/sumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:gravity="center"
+            android:text="Sumber"/>
+
+        <TextView
+            android:id="@+id/tvsumberyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:text="Sumber"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/llaertikel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,6 +55,31 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:weightSum="4"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_weight="3"
+                    android:text="Sumber : "/>
+
+                <TextView
+                    android:id="@+id/ppsumberedukasi"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sumber" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

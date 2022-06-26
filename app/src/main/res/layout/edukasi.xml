@@ -73,6 +73,13 @@
                     android:visibility="gone"
                     android:text="Link"/>
 
+                <TextView
+                    android:id="@+id/ppsumberedukasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Sumber"/>
+
             </LinearLayout>
 
         </RelativeLayout>

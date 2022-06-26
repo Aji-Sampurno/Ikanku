@@ -201,6 +201,13 @@
                     android:visibility="gone" />
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Kategori produk"
+                    android:id="@+id/ppkategoriproduk"/>
+
+                <TextView
                     android:id="@+id/ppidpenjual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -291,53 +298,6 @@
                     android:text="COD" />
 
             </LinearLayout>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:weightSum="2">-->
-
-<!--                <RadioGroup-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:weightSum="2">-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="Kirim ke Rumah"/>-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="Ambil di Toko"/>-->
-
-<!--                </RadioGroup>-->
-
-<!--                <EditText-->
-<!--                    android:id="@+id/bayarpengiriman"-->
-<!--                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"/>-->
-
-<!--                <CheckBox-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="COD"/>-->
-
-<!--                <CheckBox-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="COD"/>-->
-
-<!--            </LinearLayout>-->
 
         </LinearLayout>
 
