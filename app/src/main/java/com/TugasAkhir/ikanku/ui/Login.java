@@ -1,5 +1,6 @@
 package com.TugasAkhir.ikanku.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,6 +26,10 @@ import com.TugasAkhir.ikanku.R;
 import com.TugasAkhir.ikanku.ui.pembeli.PembeliMain;
 import com.TugasAkhir.ikanku.ui.penjual.PenjualMain;
 import com.TugasAkhir.ikanku.util.ServerApi;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class Login extends AppCompatActivity {
 
@@ -39,6 +46,8 @@ public class Login extends AppCompatActivity {
     private TextView    register;
     private ProgressBar loading;
     SessionManager      sessionManager;
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,18 +119,57 @@ public class Login extends AppCompatActivity {
                         String status = object.getString("status").trim();
 
                         sessionManager.createsession(id_pengguna, username1, nama, telp, alamat, namatoko, status);
+//                        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+//                                "+62" + telp,
+//                                60,
+//                                TimeUnit.SECONDS,
+//                                Login.this,
+//                                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//                                    @Override
+//                                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onVerificationFailed(@NonNull FirebaseException e) {
+//
+//                                        Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//                                    @Override
+//                                    public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+//;
+//
+//                                        Intent intent=new Intent(getApplicationContext(),VerifyOTP.class);
+//                                        intent.putExtra("mobile",telp);
+//                                        intent.putExtra("backendotp",backendotp);
+//                                        startActivity(intent);
+//                                        finish();
+//
+//                                    }
+//                                }
+//
+//                        );
 
-                        if (status.equals("1")) {
-                            Intent intent = new Intent(Login.this, PembeliMain.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        } else {
-                            Intent intent = new Intent(Login.this, PenjualMain.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }
+//                        if (status.equals("1")) {
+//                            Intent intent = new Intent(Login.this, PembeliMain.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(intent);
+//                        } else {
+//                            Intent intent = new Intent(Login.this, PenjualMain.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(intent);
+//                        }
 
-                        loading.setVisibility(View.GONE);
+                        Intent intent=new Intent(getApplicationContext(),SendOTP.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+
+
+//                        loading.setVisibility(View.GONE);
+//                        btnlogin.setVisibility(View.VISIBLE);
+                        btnlogin.setVisibility(View.GONE);
                     }
                 } else {
                     loading.setVisibility(View.GONE);
@@ -175,5 +223,27 @@ public class Login extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            sessionManager.logout();
+            FirebaseAuth.getInstance().signOut();
+            super.moveTaskToBack(true);
+            return;
+        }
+        else {
+            sessionManager.logout();
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(getBaseContext(), "Tekan Sekali lagi untuk Keluar", Toast.LENGTH_SHORT).show();
+        }
+
+        mBackPressed = System.currentTimeMillis();
+        sessionManager.logout();
+        finish();
+        FirebaseAuth.getInstance().signOut();
     }
 }

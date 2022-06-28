@@ -1,5 +1,6 @@
 package com.TugasAkhir.ikanku.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.TugasAkhir.ikanku.Preferences;
 import com.TugasAkhir.ikanku.util.ServerApi;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -20,12 +23,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.TugasAkhir.ikanku.R;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class RegistrasiPenjual extends AppCompatActivity {
 
@@ -107,6 +116,8 @@ public class RegistrasiPenjual extends AppCompatActivity {
                             builder.setPositiveButton("Login",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
+                                            sessionManager.logout();
+                                            FirebaseAuth.getInstance().signOut();
                                             Intent intent = new Intent(RegistrasiPenjual.this, Login.class);
                                             RegistrasiPenjual.this.startActivity(intent);
                                             finish();

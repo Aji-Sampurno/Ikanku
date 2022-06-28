@@ -29,6 +29,7 @@ import com.TugasAkhir.ikanku.R;
 import com.TugasAkhir.ikanku.ui.RegistrasiPenjual;
 import com.TugasAkhir.ikanku.ui.SessionManager;
 import com.TugasAkhir.ikanku.ui.Pesanan;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -119,6 +120,7 @@ public class PembeliAkun extends Fragment {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 sessionManager.logout();
+                                FirebaseAuth.getInstance().signOut();
                                 Intent i = new Intent(getActivity(), Login.class);
                                 startActivity(i);
                                 getActivity().finish();

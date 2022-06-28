@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.TugasAkhir.ikanku.Preferences;
 import com.TugasAkhir.ikanku.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -101,6 +102,7 @@ public class Akun extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 sessionManager.logout();
+                                FirebaseAuth.getInstance().signOut();
                                 Intent i = new Intent(Akun.this, Login.class);
                                 startActivity(i);
                                 finish();

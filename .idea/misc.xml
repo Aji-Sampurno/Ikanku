@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Ikanku/app/src/main/res/drawable/backgroundbox.xml" value="0.1" />
+        <entry key="..\:/Ikanku/app/src/main/res/drawable/backgroundbutton.xml" value="0.229" />
+        <entry key="..\:/Ikanku/app/src/main/res/drawable/sendmail.xml" value="0.1" />
         <entry key="..\:/Ikanku/app/src/main/res/layout/activity_checkout.xml" value="0.25" />
         <entry key="..\:/Ikanku/app/src/main/res/layout/activity_detail_produk.xml" value="0.25" />
         <entry key="..\:/Ikanku/app/src/main/res/layout/activity_kategori_produk.xml" value="0.25" />
@@ -14,6 +17,8 @@
         <entry key="..\:/Ikanku/app/src/main/res/layout/activity_penjualan.xml" value="0.17346014492753623" />
         <entry key="..\:/Ikanku/app/src/main/res/layout/activity_play_video.xml" value="0.25" />
         <entry key="..\:/Ikanku/app/src/main/res/layout/activity_registrasi.xml" value="0.4" />
+        <entry key="..\:/Ikanku/app/src/main/res/layout/activity_send_otp.xml" value="0.264" />
+        <entry key="..\:/Ikanku/app/src/main/res/layout/activity_verify_otp.xml" value="0.264" />
         <entry key="..\:/Ikanku/app/src/main/res/layout/badge_checkout.xml" value="0.24895833333333334" />
         <entry key="..\:/Ikanku/app/src/main/res/layout/badge_notifikasi.xml" value="0.25" />
         <entry key="..\:/Ikanku/app/src/main/res/layout/daftarbarang.xml" value="0.25" />

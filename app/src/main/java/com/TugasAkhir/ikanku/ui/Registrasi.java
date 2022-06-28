@@ -1,5 +1,6 @@
 package com.TugasAkhir.ikanku.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -16,7 +17,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.TugasAkhir.ikanku.Preferences;
 import com.TugasAkhir.ikanku.model.ModelDataProduk;
 import com.TugasAkhir.ikanku.util.ServerApi;
 import com.android.volley.AuthFailureError;
@@ -29,6 +32,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.TugasAkhir.ikanku.R;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +44,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class Registrasi extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -45,6 +53,7 @@ public class Registrasi extends AppCompatActivity implements AdapterView.OnItemS
     private Button      btnregister;
     private ProgressBar loading;
     private TextView    login;
+    SessionManager      sessionManager;
 
     ArrayList<String> provinsi  = new ArrayList<>();
     ArrayList<String> kabupaten = new ArrayList<>();
@@ -60,6 +69,8 @@ public class Registrasi extends AppCompatActivity implements AdapterView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrasi);
+
+        sessionManager = new SessionManager(this);
 
         loading         = findViewById(R.id.loading);
         username        = findViewById(R.id.inp_username);

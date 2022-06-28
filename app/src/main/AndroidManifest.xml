@@ -23,18 +23,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ikanku">
         <activity
+            android:name=".ui.VerifyOTP"
+            android:exported="true" />
+        <activity
+            android:name=".ui.SendOTP"
+            android:exported="true" />
+        <activity
             android:name=".ui.Checkout"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.KategoriProduk"
-            android:exported="false" />
+            android:exported="true" />
         <activity android:name=".ui.penjual.PlayVideo" />
         <activity android:name=".ui.penjual.DetailEdukasi" />
         <activity android:name=".ui.penjualan.DetailPenjualan" />
-        <activity android:name=".ui.SplashScreen">
+        <activity android:name=".ui.SplashScreen"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

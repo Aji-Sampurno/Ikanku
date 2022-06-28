@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.TugasAkhir.ikanku.R;
 import com.TugasAkhir.ikanku.ui.pembeli.PembeliMain;
 import com.TugasAkhir.ikanku.ui.penjual.PenjualMain;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,6 +86,7 @@ public class PengaturanAkun extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 sessionManager.logout();
+                                FirebaseAuth.getInstance().signOut();
                                 Intent i = new Intent(PengaturanAkun.this, Login.class);
                                 startActivity(i);
                                 finish();

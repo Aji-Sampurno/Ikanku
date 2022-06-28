@@ -57,8 +57,6 @@ public class SplashScreen extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
-//                    Intent intent = new Intent(com.example.ikanku.ui.SplashScreen.this, PenjualMain.class);
-//                    startActivity(intent);
                 } else {
                     Intent dsp = new Intent(SplashScreen.this, Login.class);
                     startActivity(dsp);

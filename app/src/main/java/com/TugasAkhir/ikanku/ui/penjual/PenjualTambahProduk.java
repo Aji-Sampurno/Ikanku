@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.TugasAkhir.ikanku.ui.DetailProduk;
 import com.TugasAkhir.ikanku.ui.Keranjang;
+import com.TugasAkhir.ikanku.ui.Login;
 import com.TugasAkhir.ikanku.ui.Registrasi;
 import com.TugasAkhir.ikanku.ui.pembeli.PembeliMain;
 import com.TugasAkhir.ikanku.util.ServerApi;
@@ -124,7 +125,14 @@ public class PenjualTambahProduk extends AppCompatActivity {
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent,"Pilih Gambar"), CODE_GALLERY_REQUEST);
             } else {
-                Toast.makeText(getApplicationContext(), "Tidak Mendapatkan Izin Untuk Mengakses Galeri", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(PenjualTambahProduk.this);
+                builder.setTitle("Gagal").
+                        setIcon(R.mipmap.ic_warning_foreground).
+                        setMessage("Tidak Mendapatkan Izin Untuk Mengakses Galeri");
+                builder.setPositiveButton("OK",
+                        (dialog, id) -> dialog.cancel());
+                AlertDialog alert11 = builder.create();
+                alert11.show();
             }
 
             return;
@@ -203,7 +211,7 @@ public class PenjualTambahProduk extends AppCompatActivity {
                         try {
                             JSONObject res = new JSONObject(response);
                             AlertDialog.Builder builder = new AlertDialog.Builder(PenjualTambahProduk.this);
-                            builder.setTitle("Tambah Produk").
+                            builder.setTitle("Berhasil").
                                     setIcon(R.mipmap.ic_sukses_foreground).
                                     setMessage("Produk berhasil ditambahkan");
                             builder.setPositiveButton("OK",
@@ -224,7 +232,14 @@ public class PenjualTambahProduk extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         pd.cancel();
-                        Toast.makeText(PenjualTambahProduk.this, "Error : "+ error.toString(), Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PenjualTambahProduk.this);
+                        builder.setTitle("Gagal").
+                                setIcon(R.mipmap.ic_warning_foreground).
+                                setMessage("Produk gagal ditambahkan");
+                        builder.setPositiveButton("Coba Lagi",
+                                (dialog, id) -> dialog.cancel());
+                        AlertDialog alert11 = builder.create();
+                        alert11.show();
                     }
                 }){
             @Override
